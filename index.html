@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#fff4a8" />
+  <meta name="description" content="Bikin quiz tentang dirimu dan tantang temanmu!" />
+  <title>Bestie Check! 🎉</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <div class="confetti confetti-a"></div>
+  <div class="confetti confetti-b"></div>
+  <div class="confetti confetti-c"></div>
+
+  <header class="site-header">
+    <a href="index.html" class="logo">bestie<span>check!</span></a>
+    <span class="header-tag">JUST FOR FUN ✦</span>
+  </header>
+
+  <main class="page-shell">
+    <section id="homeScreen" class="screen home-grid">
+      <div class="intro">
+        <span class="sticker">THE FRIENDSHIP CHALLENGE</span>
+
+        <h1>
+          Ngaku kenal?<br />
+          <span>Buktiin dulu!</span>
+        </h1>
+
+        <p class="hero-copy">
+          Sepuluh pertanyaan random tentang kamu.
+          Siapa yang paling jago nebak?
+        </p>
+
+        <div class="intro-tags">
+          <span>🍿 Buat circle kamu</span>
+          <span>⏰ Tanpa timer</span>
+          <span>🎉 Gratis ketawa</span>
+        </div>
+
+        <div class="mini-note">
+          <strong>How it works</strong>
+          <span>Isi jawabanmu → salin link → kirim ke teman → lihat skor mereka.</span>
+        </div>
+      </div>
+
+      <div class="card setup-card">
+        <div class="emoji-row" aria-hidden="true">😎 ✨ 🤝</div>
+        <h2>Oke, siapa nih?</h2>
+        <p>Siapin quiz versimu. Nanti temanmu yang jawab!</p>
+
+        <form id="nameForm">
+          <label for="ownerName">Nama panggilan kamu</label>
+          <input
+            id="ownerName"
+            type="text"
+            placeholder="Tulis nama kamu..."
+            maxlength="24"
+            autocomplete="nickname"
+            required
+          />
+          <button type="submit" class="button button-blue">
+            Bikin quiz-ku →
+          </button>
+        </form>
+
+        <p id="homeError" class="error" role="alert"></p>
+        <p class="small-note">Pakai nama panggilan aja juga boleh.</p>
+      </div>
+    </section>
+
+    <section id="quizScreen" class="screen narrow" hidden>
+      <div class="quiz-meta">
+        <span id="modeLabel" class="badge">VERSI KAMU</span>
+        <span id="questionCount">1 / 10</span>
+      </div>
+
+      <progress
+        id="quizProgress"
+        value="0"
+        max="10"
+        aria-label="Jumlah pertanyaan terjawab"
+      ></progress>
+
+      <div class="card question-card">
+        <div id="questionEmoji" class="question-emoji" aria-hidden="true">🧋</div>
+        <p id="questionHint" class="eyebrow">PILIH YANG PALING KAMU BANGET</p>
+        <h2 id="questionTitle" tabindex="-1"></h2>
+
+        <div
+          id="answerOptions"
+          class="answer-options"
+          role="group"
+          aria-labelledby="questionTitle"
+        ></div>
+
+        <div class="quiz-actions">
+          <button id="backButton" class="button button-white" type="button">
+            ← Balik
+          </button>
+          <button id="nextButton" class="button button-blue" type="button" disabled>
+            Lanjut →
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <section id="shareScreen" class="screen narrow" hidden>
+      <div class="card share-card">
+        <div class="result-emoji">🎉</div>
+        <span class="sticker pink">QUIZ READY!</span>
+        <h2 id="shareTitle">Quiz kamu udah jadi!</h2>
+        <p>
+          Copy link di bawah ini dan kirim ke temanmu.
+          Jawaban kamu ikut tersimpan di link.
+        </p>
+
+        <div class="link-box">
+          <input id="shareLink" readonly aria-label="Link quiz" />
+          <button id="copyButton" class="button button-yellow" type="button">
+            Copy link
+          </button>
+        </div>
+
+        <p id="copyStatus" class="copy-status"></p>
+
+        <div class="share-actions">
+          <button id="previewButton" class="button button-blue" type="button">
+            Coba jadi teman 👀
+          </button>
+          <button id="restartButton" class="button button-white" type="button">
+            Buat quiz baru
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <section id="friendIntroScreen" class="screen narrow" hidden>
+      <div class="card friend-intro-card">
+        <span class="sticker blue">BESTIE TEST</span>
+        <div class="result-emoji">🕵️‍♀️</div>
+        <h2 id="friendIntroTitle">Seberapa kenal kamu sama dia?</h2>
+        <p id="friendIntroText">
+          Ada 10 pertanyaan. Pilih jawaban yang menurutmu paling cocok.
+        </p>
+        <button id="startFriendQuiz" class="button button-blue" type="button">
+          Mulai nebak →
+        </button>
+      </div>
+    </section>
+
+    <section id="resultScreen" class="screen narrow" hidden>
+      <div class="card result-card">
+        <div id="resultEmoji" class="result-emoji">🏆</div>
+        <span class="sticker pink">HASIL AKHIR</span>
+        <h2 id="resultHeadline">8/10!</h2>
+        <p id="resultMessage"></p>
+
+        <div class="score-bar-wrap">
+          <div class="score-labels">
+            <span>Skor kamu</span>
+            <strong id="resultPercent">80%</strong>
+          </div>
+          <div class="score-bar">
+            <div id="scoreFill" class="score-fill"></div>
+          </div>
+        </div>
+
+        <div id="answerReview" class="review-list"></div>
+
+        <div class="result-actions">
+          <button id="retryButton" class="button button-blue" type="button">
+            Coba lagi
+          </button>
+          <button id="makeOwnButton" class="button button-white" type="button">
+            Bikin quiz-ku sendiri
+          </button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    Made for besties, chaos, dan sedikit saling judge 💌
+  </footer>
+</body>
+</html>
